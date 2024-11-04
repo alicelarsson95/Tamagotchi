@@ -1,16 +1,19 @@
-Tamagotchi
+Tamagotchi Bikkjen
 1. HMTL
     - Tamagotchi
         - knappar (äta, sova, leka)
         - textfält
         - ikoner för status (hunger, energi, glädje) (font awesome)
     - Ev. textfält
+
 2. CSS
+
 3. JavaScript
     - kunna hålla koll på tid
     - kunna hålla koll på statusnivåer
     - kunna ändra färg/form beroende på hur den mår
     - använda sig av localStorage
+    - setTimeIntervall
 
     - const eneryLevel
 
