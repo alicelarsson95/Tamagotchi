@@ -31,7 +31,7 @@ const eggImage = document.querySelector('.tamagotchi-img--egg');
 function startTamagotchi() {
     tamagotchiStates[4].style.display = 'none'
     tamagotchiStates[0].style.display = 'block'
-    hatchText.innerText = "It's hatched!"
+    hatchText.innerText = "Bikkjen has hatched!"
     
     
     setTimeout(clearText, 2000)
@@ -49,13 +49,41 @@ function countDownLevels() {
     hungerLevel -=1.5
     happinessLevel --
 
+    let displayColor = document.querySelector('.tamagotchi-display')
+
     if (energyLevel <= 0 || happinessLevel <= 0 || hungerLevel <= 0){
         tamagotchiStates[3].style.display = 'none'
         tamagotchiStates[1].style.display = 'block'
+        displayColor.style.background = '#b60101';
+        displayColor.style.background = '-webkit-linear-gradient(to top, #b60101, rgb(238, 85, 58))';  
+        displayColor.style.background = 'linear-gradient(to top, #b60101, rgb(238, 85, 58))';
+        } else if (energyLevel <= 10 || happinessLevel <= 10 || hungerLevel <= 10) {
+          tamagotchiStates[0].style.display = 'none'
+          tamagotchiStates[3].style.display = 'block'
+          displayColor.style.background = '#e60000';
+          displayColor.style.background = '-webkit-linear-gradient(to top, #e60000, rgb(240, 96, 71))';  
+          displayColor.style.background = 'linear-gradient(to top, #e60000, rgb(240, 96, 71))';
+        } else if (energyLevel <= 20 || happinessLevel <= 20 || hungerLevel <= 20) {
+          tamagotchiStates[0].style.display = 'none'
+          tamagotchiStates[3].style.display = 'block'
+          displayColor.style.background = '#e50000';
+          displayColor.style.background = '-webkit-linear-gradient(to top, #e50000, rgb(243, 134, 115))';  
+          displayColor.style.background = 'linear-gradient(to top, #e50000, rgb(243, 134, 115))';
         } else if (energyLevel <= 30 || happinessLevel <= 30 || hungerLevel <= 30) {
           tamagotchiStates[0].style.display = 'none'
           tamagotchiStates[3].style.display = 'block'
-        } 
+          displayColor.style.background = '#e42e00';
+          displayColor.style.background = '-webkit-linear-gradient(to top, #e42e00, rgb(248, 189, 178))';  
+          displayColor.style.background = 'linear-gradient(to top, #e42e00, rgb(248, 189, 178))';
+        } else if (energyLevel <= 40 || happinessLevel <= 40 || hungerLevel <= 40) {
+            displayColor.style.background = '#db6c22';
+            displayColor.style.background = '-webkit-linear-gradient(to top, #db6c22, rgb(245, 202, 195))';  
+            displayColor.style.background = 'linear-gradient(to top, #db6c22, rgb(245, 202, 195))';
+        } else if (energyLevel <= 50 || happinessLevel <= 50 || hungerLevel <= 50) {
+            displayColor.style.background = '#e6b492';
+            displayColor.style.background = '-webkit-linear-gradient(to top,  #e6b492, #f2f8c6)';  
+            displayColor.style.background = 'linear-gradient(to top, #e6b492, #f2f8c6)'; 
+        }
 
         if (energyLevel <= 0 || happinessLevel <= 0 || hungerLevel <= 0) {
             clearInterval(levels)
