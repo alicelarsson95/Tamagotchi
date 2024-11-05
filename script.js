@@ -1,22 +1,31 @@
 let energyLevel = 100;
 let happinessLevel = 100;
 let hungerLevel = 100;
-
-/* let energy ;
-let happiness ;
-let hunger ; */
-
-
 const tamagotchiStates = document.querySelectorAll(".tamagotchi-img");;
 tamagotchiStates.forEach(state => {
     state.style.display = 'none' 
 });
 
-const hatchText = document.querySelector('.hatch-text'); 
+let displayColor = document.querySelector('.tamagotchi-display')
+
+const sleepButton = document.querySelector('.tamagotchi_button--sleep')
+sleepButton.addEventListener('click', sleepTamagotchi)
+const feedButton = document.querySelector('.tamagotchi_button--eat')
+feedButton.addEventListener('click', function() {
+    feedTamagotchi()
+})
+const playButton = document.querySelector('.tamagotchi_button--play')
+playButton.addEventListener('click', function() {
+    playWithTamagotchi()
+})
+
 const startButton = document.querySelector('.start-button')
+const resetButton = document.querySelector('.reset-button')
+
+const hatchText = document.querySelector('.hatch-text'); 
 const eggImage = document.querySelector('.tamagotchi-img--egg');
 
-    startButton.addEventListener('click', function() {
+startButton.addEventListener('click', function() {
     tamagotchiStates[4].style.display = 'block';
     hatchText.innerText = 'Hatching..';
     eggImage.classList.add('shake');
@@ -49,7 +58,7 @@ function countDownLevels() {
     hungerLevel -=1.5
     happinessLevel --
 
-    let displayColor = document.querySelector('.tamagotchi-display')
+    
 
     if (energyLevel <= 0 || happinessLevel <= 0 || hungerLevel <= 0){
         tamagotchiStates[3].style.display = 'none'
@@ -87,30 +96,77 @@ function countDownLevels() {
 
         if (energyLevel <= 0 || happinessLevel <= 0 || hungerLevel <= 0) {
             clearInterval(levels)
+            hatchText.innerText = "Bikkjen has died :("
         }    
         console.log('energi: ', energyLevel, 'lycka: ', happinessLevel, 'hunger: ', hungerLevel)
  }, 400);
 }
 
-/*   const feedButton = document.querySelector('.tamagotchi__button tamagotchi_button--eat')
-    feedButton.addEventListener('click', function() {
-    feedTamagotchi()})
-
+ 
  function feedTamagotchi(){ 
-
-        if (hungerLevel < 0) {
+/*         if (hungerLevel < 0) {
         hungerLevel += 10;
             if (hungerLevel <= 100) {
                 hungerLevel = 100;
                 console.log("Bikkjen is full!");
             }
-        }
+        } */
 }
- */
+
 
 function sleepTamagotchi(){
+    sleepButton.removeEventListener('click', sleepTamagotchi)
+    sleepButton.addEventListener('click', awakenTamagotchi)
 
+    clearInterval(levels)
+
+    tamagotchiStates[0].style.display = 'none'
+    tamagotchiStates[2].style.display = 'block'
+
+    displayColor.style.background = '#080f6d';
+    displayColor.style.background = '-webkit-linear-gradient(to top, #2933bb, #080f6d)';  
+    displayColor.style.background = 'linear-gradient(to top, #2933bb, #080f6d)'; 
+
+    energy = setInterval(() => {
+        energyLevel ++
+
+        console.log('energipåfyllnad: ', energyLevel);
+        
+
+        if (hatchText.innerText.length < 5){
+            hatchText.innerText += ' z'
+            console.log(
+             hatchText.innerText.length)
+        } else if (hatchText.innerText.length >= 5) {
+            hatchText.innerText = ''
+        }
+
+        if (energyLevel == 100) {
+            awakenTamagotchi()
+        }
+        
+    }, 1000);
+    
+  
+    
+
+
+    
 }
+
+function awakenTamagotchi() {
+    clearInterval(energy)
+    hatchText.innerText = ''
+    sleepButton.removeEventListener('click', awakenTamagotchi)
+    sleepButton.addEventListener('click', sleepTamagotchi)
+
+    tamagotchiStates[0].style.display = 'block'
+    tamagotchiStates[2].style.display = 'none'
+    displayColor.style.background = ''
+
+    countDownLevels()
+}
+
 
 function playWithTamagotchi(){
 
