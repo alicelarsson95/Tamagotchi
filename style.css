@@ -11,14 +11,20 @@ body {
 
 .site-wrapper {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  width: 80vw;
+  gap: 3rem;
+  width: 90vw;
   height: 100vh;
 }
 
 button {
   cursor: pointer;
+}
+
+.heading {
+  align-self: flex-start;
+  margin: 2rem;
+  max-width: 20%;
 }
 
 h1 {
@@ -33,8 +39,10 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40%;
-  height: 80%;
+  min-width: 35vw; 
+  max-width: 45vw; 
+  max-height: 90vh;
+  aspect-ratio: 1/1.2;
   border: 3px solid black;
   background: #40e0d0;
   background: -webkit-linear-gradient(to bottom, #40e0d0, #ff8c00, #ff0080);
@@ -43,6 +51,7 @@ h1 {
 }
 
 .tamagotchi-display {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,8 +61,16 @@ h1 {
   background: -webkit-linear-gradient(to top, #f6fdc1, #69f6ad);
   background: linear-gradient(to top, #f2f8c6, #7af3b5);
   border-radius: 1rem;
-  width: 60%;
+  width: 65%;
   height: 60%; 
+}
+
+.hatch-text {
+  position: absolute;
+  bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-family: "VT323", sans-serif;
 }
 
 @keyframes shake {
@@ -107,24 +124,36 @@ h1 {
 
 .buttons-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   gap: 5rem;
 }
 .start-button,
 .reset-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 4rem;
   height: 4rem;
   border-radius: 2rem;
   border: 2px solid black;
 }
 
-p {
-  font-size: 1.8rem;
-  font-weight: bold;
-  font-family: "VT323", sans-serif;
+.start-button {
+  background-color: rgb(152, 233, 114);
 }
 
+.reset-button {
+  background-color: #f3c187;
+}
+
+
+
 .tamagotchi__button-icon-restart {
-  width: 1.5rem;
-  height: 1.5rem;
+  max-width: 65%;
+}
+
+.tamagotchi__button-icon-start{
+  max-width: 75%;
+  
 }
