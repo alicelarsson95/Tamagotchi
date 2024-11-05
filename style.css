@@ -28,8 +28,7 @@
 }
 
 .tamagotchi-img {
-    width: 50%;
-    height: 50%;
+    max-width: 60%;
 }
 
 .tamagotchi__button__container {
