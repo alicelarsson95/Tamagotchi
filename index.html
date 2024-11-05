@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
     <title>Tamagotchi Bikkjen</title>
 </head>
 <body>
@@ -12,16 +16,34 @@
             <h1>Bikkjen the tamagotchi</h1>
         </header>
         <article class="tamagotchi-outline">
-            <section class="display">
+            <section class="tamagotchi-display">
                   <section class="tamagotchi-figure">
-                    <img class="tamagotchi-img" src="img/dragon-happy.png" alt="">
+                    <img class="tamagotchi-img tamagotchi-img--default" src="img/dragon-happy.png" alt="">
+                    <img class="tamagotchi-img tamagotchi-img--dead" src="img/dragon-dead.png" alt="">
+                    <img class="tamagotchi-img tamagotchi-img--sleep" src="img/dragon-sleep.png" alt="">
+                    <img class="tamagotchi-img tamagotchi-img--sad" src="img/dragon-sad.png" alt="">
+                    <img class="tamagotchi-img tamagotchi-img--egg" src="img/aggis.png" alt="">
                   </section>
+              <p class="hatch-text"></p>    
+            </section>
+            
+            <section class="tamagotchi-display--levels">
+                  <section class="tamagotchi-levels tamagoshi-levels--hunger">
+
+                  </section>
+                  <section class="tamagotchi-levels tamagoshi-levels--sleep">
+
+                  </section>
+                  <section class="tamagotchi-levels tamagoshi-levels--play">
+                    
+                  </section>
+                  
             </section>
             <section class="tamagotchi__button__container">
                 <button class="tamagotchi__button tamagotchi_button--sleep">
-                    <img class="tamagotchi__button-icon" src="img/moon-regular.svg" alt="">
+                    <img class="tamagotchi__button-icon" src="img/moon-solid.svg" alt="">
                 </button>
-
+                
                 <button class="tamagotchi__button tamagotchi_button--eat">
                     <img class="tamagotchi__button-icon" src="img/utensils-solid.svg" alt="">
                 </button>
@@ -29,7 +51,17 @@
                 <button class="tamagotchi__button tamagotchi_button--play">
                     <img class="tamagotchi__button-icon" src="img/gamepad-solid.svg" alt="">
                 </button>
+                
+                <button class="tamagotchi__button tamagotchi_button--levels">
+                    <img class="tamagotchi__button-icon" src="img/heart-solid.svg" alt="">
+                </button>
             </section>
+        </article>
+        <article class="buttons-container">
+            <button class="start-button"> <p>Start<p> </button>
+            <button class="reset-button">
+                <img class="tamagotchi__button-icon-restart" src="img/rotate-left-solid.svg" alt="">
+            </button>
         </article>
     </div>
 </body>
