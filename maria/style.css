@@ -1,0 +1,171 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.site-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: 90vw;
+  height: 100vh;
+}
+
+button {
+  cursor: pointer;
+}
+
+.heading {
+  align-self: flex-start;
+  margin: 2rem;
+  max-width: 20%;
+}
+
+h1 {
+  font-family: "VT323", sans-serif;
+  font-size: 4rem;
+  margin-bottom: 3.5rem;
+  margin-top: 2rem;
+}
+
+.tamagotchi-outline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 35vw; 
+  max-width: 45vw; 
+  max-height: 90vh;
+  aspect-ratio: 1/1.2;
+  border: 3px solid black;
+  background: #40e0d0;
+  background: -webkit-linear-gradient(to bottom, #40e0d0, #ff8c00, #ff0080);
+  background: linear-gradient(to bottom, #40e0d0, #ff8c00, #ff0080);
+  border-radius: 50%;
+}
+
+.tamagotchi-display {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid black;
+  background: #a1ffce;
+  background: -webkit-linear-gradient(to top, #f6fdc1, #69f6ad);
+  background: linear-gradient(to top, #f2f8c6, #7af3b5);
+  border-radius: 1rem;
+  width: 65%;
+  height: 60%; 
+}
+
+.tamagotchi-display--tamagotchi {
+  display: none;
+}
+
+.tamagotchi-display--levels {
+
+}
+
+.tamagotchi-display--levels img {
+  min-width: 3rem;
+}
+
+.hatch-text {
+  position: absolute;
+  bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-family: "VT323", sans-serif;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.tamagotchi-img {
+  max-width: 60%;
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out infinite;
+}
+
+.tamagotchi__button__container {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  gap: 1.6rem;
+}
+
+.tamagotchi__button-icon {
+  color: black;
+  width: 80%;
+  height: 80%;
+  padding: 0.3rem;
+  justify-self: center;
+  align-self: center;
+}
+
+.tamagotchi__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid black;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.tamagotchi-figure {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5rem;
+}
+.start-button,
+.reset-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 2rem;
+  border: 2px solid black;
+}
+
+.start-button {
+  background-color: rgb(152, 233, 114);
+}
+
+.reset-button {
+  background-color: #f3c187;
+}
+
+
+
+.tamagotchi__button-icon-restart {
+  max-width: 65%;
+}
+
+.tamagotchi__button-icon-start{
+  max-width: 75%;
+  
+}
