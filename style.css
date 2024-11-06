@@ -65,6 +65,18 @@ h1 {
   height: 60%; 
 }
 
+.tamagotchi-display--tamagotchi {
+  display: none;
+}
+
+.tamagotchi-display--levels {
+
+}
+
+.tamagotchi-display--levels img {
+  min-width: 3rem;
+}
+
 .hatch-text {
   position: absolute;
   bottom: 1rem;

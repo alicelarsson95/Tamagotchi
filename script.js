@@ -6,8 +6,8 @@ tamagotchiStates.forEach(state => {
     state.style.display = 'none' 
 });
 
-let displayColor = document.querySelector('.tamagotchi-display')
-
+let displayTamagotchi = document.querySelector('.tamagotchi-display')
+const displayStats = document.querySelector('.tamagotchi-display--levels')
 
 
 const sleepButton = document.querySelector('.tamagotchi_button--sleep')
@@ -65,33 +65,33 @@ function countDownLevels() {
         clearInterval(levels)
         hatchText.innerText = "Bikkjen has died :("
 
-        displayColor.style.background = '#b60101';
-        displayColor.style.background = '-webkit-linear-gradient(to top, #b60101, rgb(238, 85, 58))';  
-        displayColor.style.background = 'linear-gradient(to top, #b60101, rgb(238, 85, 58))';
+        displayTamagotchi.style.background = '#b60101';
+        displayTamagotchi.style.background = '-webkit-linear-gradient(to top, #b60101, rgb(238, 85, 58))';  
+        displayTamagotchi.style.background = 'linear-gradient(to top, #b60101, rgb(238, 85, 58))';
         } else if (energyLevel <= 10 || happinessLevel <= 10 || hungerLevel <= 10) {
-          displayColor.style.background = '#e60000';
-          displayColor.style.background = '-webkit-linear-gradient(to top, #e60000, rgb(240, 96, 71))';  
-          displayColor.style.background = 'linear-gradient(to top, #e60000, rgb(240, 96, 71))';
+          displayTamagotchi.style.background = '#e60000';
+          displayTamagotchi.style.background = '-webkit-linear-gradient(to top, #e60000, rgb(240, 96, 71))';  
+          displayTamagotchi.style.background = 'linear-gradient(to top, #e60000, rgb(240, 96, 71))';
         } else if (energyLevel <= 20 || happinessLevel <= 20 || hungerLevel <= 20) {
-          displayColor.style.background = '#e50000';
-          displayColor.style.background = '-webkit-linear-gradient(to top, #e50000, rgb(243, 134, 115))';  
-          displayColor.style.background = 'linear-gradient(to top, #e50000, rgb(243, 134, 115))';
+          displayTamagotchi.style.background = '#e50000';
+          displayTamagotchi.style.background = '-webkit-linear-gradient(to top, #e50000, rgb(243, 134, 115))';  
+          displayTamagotchi.style.background = 'linear-gradient(to top, #e50000, rgb(243, 134, 115))';
         } else if (energyLevel <= 30 || happinessLevel <= 30 || hungerLevel <= 30) {
           tamagotchiStates[0].style.display = 'none'
           tamagotchiStates[3].style.display = 'block'
-          displayColor.style.background = '#e42e00';
-          displayColor.style.background = '-webkit-linear-gradient(to top, #e42e00, rgb(248, 189, 178))';  
-          displayColor.style.background = 'linear-gradient(to top, #e42e00, rgb(248, 189, 178))';
+          displayTamagotchi.style.background = '#e42e00';
+          displayTamagotchi.style.background = '-webkit-linear-gradient(to top, #e42e00, rgb(248, 189, 178))';  
+          displayTamagotchi.style.background = 'linear-gradient(to top, #e42e00, rgb(248, 189, 178))';
         } else if (energyLevel <= 40 || happinessLevel <= 40 || hungerLevel <= 40) {
-            displayColor.style.background = '#db6c22';
-            displayColor.style.background = '-webkit-linear-gradient(to top, #db6c22, rgb(245, 202, 195))';  
-            displayColor.style.background = 'linear-gradient(to top, #db6c22, rgb(245, 202, 195))';
+            displayTamagotchi.style.background = '#db6c22';
+            displayTamagotchi.style.background = '-webkit-linear-gradient(to top, #db6c22, rgb(245, 202, 195))';  
+            displayTamagotchi.style.background = 'linear-gradient(to top, #db6c22, rgb(245, 202, 195))';
         } else if (energyLevel <= 50 || happinessLevel <= 50 || hungerLevel <= 50) {
-            displayColor.style.background = '#e6b492';
-            displayColor.style.background = '-webkit-linear-gradient(to top,  #e6b492, #f2f8c6)';  
-            displayColor.style.background = 'linear-gradient(to top, #e6b492, #f2f8c6)'; 
+            displayTamagotchi.style.background = '#e6b492';
+            displayTamagotchi.style.background = '-webkit-linear-gradient(to top,  #e6b492, #f2f8c6)';  
+            displayTamagotchi.style.background = 'linear-gradient(to top, #e6b492, #f2f8c6)'; 
         } else {
-            displayColor.style.background = '';
+            displayTamagotchi.style.background = '';
         }
 
         console.log('energi: ', energyLevel, 'lycka: ', happinessLevel, 'hunger: ', hungerLevel)
@@ -162,9 +162,9 @@ function sleepTamagotchi(){
     tamagotchiStates[3].style.display = 'none'
     tamagotchiStates[2].style.display = 'block'
 
-    displayColor.style.background = '#080f6d';
-    displayColor.style.background = '-webkit-linear-gradient(to top, #2933bb, #080f6d)';  
-    displayColor.style.background = 'linear-gradient(to top, #2933bb, #080f6d)'; 
+    displayTamagotchi.style.background = '#080f6d';
+    displayTamagotchi.style.background = '-webkit-linear-gradient(to top, #2933bb, #080f6d)';  
+    displayTamagotchi.style.background = 'linear-gradient(to top, #2933bb, #080f6d)'; 
 
     energy = setInterval(() => {
         energyLevel ++
@@ -195,7 +195,7 @@ function awakenTamagotchi() {
 
     tamagotchiStates[0].style.display = 'block' //if över 30 glad, else ledsen
     tamagotchiStates[2].style.display = 'none'
-    displayColor.style.background = ''
+    displayTamagotchi.style.background = ''
 
     countDownLevels()
 }
