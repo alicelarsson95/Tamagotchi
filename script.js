@@ -59,6 +59,12 @@ function countDownLevels() {
     
 
     if (energyLevel <= 0 || happinessLevel <= 0 || hungerLevel <= 0){
+        tamagotchiStates[3].style.display = 'none'
+        tamagotchiStates[1].style.display = 'block'
+
+        clearInterval(levels)
+        hatchText.innerText = "Bikkjen has died :("
+
         displayColor.style.background = '#b60101';
         displayColor.style.background = '-webkit-linear-gradient(to top, #b60101, rgb(238, 85, 58))';  
         displayColor.style.background = 'linear-gradient(to top, #b60101, rgb(238, 85, 58))';
@@ -88,12 +94,6 @@ function countDownLevels() {
             displayColor.style.background = '';
         }
 
-
-
-        if (energyLevel <= 0 || happinessLevel <= 0 || hungerLevel <= 0) {
-            clearInterval(levels)
-            hatchText.innerText = "Bikkjen has died :("
-        }    
         console.log('energi: ', energyLevel, 'lycka: ', happinessLevel, 'hunger: ', hungerLevel)
         //localstorage
  }, 400);
@@ -101,19 +101,60 @@ function countDownLevels() {
 
  
  function feedTamagotchi(){ 
-/*         if (hungerLevel < 0) {
-        hungerLevel += 10;
-            if (hungerLevel <= 100) {
-                hungerLevel = 100;
-                console.log("Bikkjen is full!");
-            }
-        } */
+    feedButton.removeEventListener('click', feedTamagotchi)
+    feedButton.addEventListener('click', stopfeedingTamagotchi)
+    sleepButton.disabled = true
+    playButton.disabled = true
+
+    clearInterval(levels)
+
+    tamagotchiStates[0].style.display = 'none'
+    tamagotchiStates[3].style.display = 'none'
+    tamagotchiStates[5].style.display = 'block'
+
+    eating = setInterval(() => {
+        hungerLevel ++
+        console.log('matpåfyllnad: ', hungerLevel);
+        
+        if(tamagotchiStates[5].style.display === 'block'){
+            tamagotchiStates[5].style.display = 'none'
+            tamagotchiStates[6].style.display = 'block'
+            hatchText.innerHTML = 'nom'
+        } else {
+            tamagotchiStates[6].style.display = 'none'
+            tamagotchiStates[5].style.display = 'block'
+            hatchText.innerHTML = ''
+        }
+
+        if (hungerLevel == 100) {
+            stopfeedingTamagotchi()
+        }
+    }, 500);
+
 }
 
+function stopfeedingTamagotchi(){
+    clearInterval(eating)
+    hatchText.innerText = ''
+    feedButton.removeEventListener('click', stopfeedingTamagotchi)
+    feedButton.addEventListener('click', feedTamagotchi)
+    sleepButton.disabled = false
+    playButton.disabled = false
+
+    tamagotchiStates[0].style.display = 'block' //if över 30 glad, else ledsen
+    tamagotchiStates[5].style.display = 'none'
+    tamagotchiStates[6].style.display = 'none'
+
+    countDownLevels()
+
+    
+}
 
 function sleepTamagotchi(){
     sleepButton.removeEventListener('click', sleepTamagotchi)
     sleepButton.addEventListener('click', awakenTamagotchi)
+    feedButton.disabled = true
+    playButton.disabled = true
 
     clearInterval(levels)
 
@@ -149,6 +190,8 @@ function awakenTamagotchi() {
     hatchText.innerText = ''
     sleepButton.removeEventListener('click', awakenTamagotchi)
     sleepButton.addEventListener('click', sleepTamagotchi)
+    feedButton.disabled = false
+    playButton.disabled = false
 
     tamagotchiStates[0].style.display = 'block' //if över 30 glad, else ledsen
     tamagotchiStates[2].style.display = 'none'
@@ -161,6 +204,11 @@ function awakenTamagotchi() {
 function playWithTamagotchi(){
 
 }
+
+function stopPlayingWithTamagotchi(){
+
+}
+
 
 function changeTamagotchiColor(){
 
