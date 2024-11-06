@@ -8,17 +8,11 @@ tamagotchiStates.forEach(state => {
 
 let displayColor = document.querySelector('.tamagotchi-display')
 
-const sleepButton = document.querySelector('.tamagotchi_button--sleep')
-sleepButton.addEventListener('click', sleepTamagotchi)
-const feedButton = document.querySelector('.tamagotchi_button--eat')
-feedButton.addEventListener('click', function() {
-    feedTamagotchi()
-})
-const playButton = document.querySelector('.tamagotchi_button--play')
-playButton.addEventListener('click', function() {
-    playWithTamagotchi()
-})
 
+
+const sleepButton = document.querySelector('.tamagotchi_button--sleep')
+const feedButton = document.querySelector('.tamagotchi_button--eat')
+const playButton = document.querySelector('.tamagotchi_button--play')
 const startButton = document.querySelector('.start-button')
 const resetButton = document.querySelector('.reset-button')
 
@@ -35,6 +29,10 @@ startButton.addEventListener('click', function() {
     setTimeout(startTamagotchi, 5000);
 
     startButton.disabled = true;
+   
+    sleepButton.addEventListener('click', sleepTamagotchi)
+    feedButton.addEventListener('click', feedTamagotchi)
+    playButton.addEventListener('click', playWithTamagotchi)
 })
 
 function startTamagotchi() {
@@ -61,20 +59,14 @@ function countDownLevels() {
     
 
     if (energyLevel <= 0 || happinessLevel <= 0 || hungerLevel <= 0){
-        tamagotchiStates[3].style.display = 'none'
-        tamagotchiStates[1].style.display = 'block'
         displayColor.style.background = '#b60101';
         displayColor.style.background = '-webkit-linear-gradient(to top, #b60101, rgb(238, 85, 58))';  
         displayColor.style.background = 'linear-gradient(to top, #b60101, rgb(238, 85, 58))';
         } else if (energyLevel <= 10 || happinessLevel <= 10 || hungerLevel <= 10) {
-          tamagotchiStates[0].style.display = 'none'
-          tamagotchiStates[3].style.display = 'block'
           displayColor.style.background = '#e60000';
           displayColor.style.background = '-webkit-linear-gradient(to top, #e60000, rgb(240, 96, 71))';  
           displayColor.style.background = 'linear-gradient(to top, #e60000, rgb(240, 96, 71))';
         } else if (energyLevel <= 20 || happinessLevel <= 20 || hungerLevel <= 20) {
-          tamagotchiStates[0].style.display = 'none'
-          tamagotchiStates[3].style.display = 'block'
           displayColor.style.background = '#e50000';
           displayColor.style.background = '-webkit-linear-gradient(to top, #e50000, rgb(243, 134, 115))';  
           displayColor.style.background = 'linear-gradient(to top, #e50000, rgb(243, 134, 115))';
@@ -92,13 +84,18 @@ function countDownLevels() {
             displayColor.style.background = '#e6b492';
             displayColor.style.background = '-webkit-linear-gradient(to top,  #e6b492, #f2f8c6)';  
             displayColor.style.background = 'linear-gradient(to top, #e6b492, #f2f8c6)'; 
+        } else {
+            displayColor.style.background = '';
         }
+
+
 
         if (energyLevel <= 0 || happinessLevel <= 0 || hungerLevel <= 0) {
             clearInterval(levels)
             hatchText.innerText = "Bikkjen has died :("
         }    
         console.log('energi: ', energyLevel, 'lycka: ', happinessLevel, 'hunger: ', hungerLevel)
+        //localstorage
  }, 400);
 }
 
@@ -121,6 +118,7 @@ function sleepTamagotchi(){
     clearInterval(levels)
 
     tamagotchiStates[0].style.display = 'none'
+    tamagotchiStates[3].style.display = 'none'
     tamagotchiStates[2].style.display = 'block'
 
     displayColor.style.background = '#080f6d';
@@ -135,8 +133,6 @@ function sleepTamagotchi(){
 
         if (hatchText.innerText.length < 5){
             hatchText.innerText += ' z'
-            console.log(
-             hatchText.innerText.length)
         } else if (hatchText.innerText.length >= 5) {
             hatchText.innerText = ''
         }
@@ -144,14 +140,8 @@ function sleepTamagotchi(){
         if (energyLevel == 100) {
             awakenTamagotchi()
         }
-        
+        //localstorage?
     }, 1000);
-    
-  
-    
-
-
-    
 }
 
 function awakenTamagotchi() {
@@ -160,7 +150,7 @@ function awakenTamagotchi() {
     sleepButton.removeEventListener('click', awakenTamagotchi)
     sleepButton.addEventListener('click', sleepTamagotchi)
 
-    tamagotchiStates[0].style.display = 'block'
+    tamagotchiStates[0].style.display = 'block' //if över 30 glad, else ledsen
     tamagotchiStates[2].style.display = 'none'
     displayColor.style.background = ''
 
