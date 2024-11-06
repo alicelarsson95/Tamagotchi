@@ -202,6 +202,18 @@ function awakenTamagotchi() {
 
 
 function playWithTamagotchi(){
+    playButton.removeEventListener('click', playWithTamagotchi)
+    playButton.addEventListener('click', stopPlayingWithTamagotchi)
+    feedButton.disabled = true
+    sleepButton.disabled = true
+
+    clearInterval(levels)
+    
+    tamagotchiStates[3].style.display = 'none'
+    tamagotchiStates[0].style.display = 'block'
+    tamagotchiStates[7].style.display = 'block'
+
+
 
 }
 
