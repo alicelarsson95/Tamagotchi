@@ -126,7 +126,7 @@ function countDownLevels() {
             hatchText.innerHTML = ''
         }
 
-        if (hungerLevel == 100) {
+        if (hungerLevel >= 100) {
             stopfeedingTamagotchi()
         }
     }, 500);

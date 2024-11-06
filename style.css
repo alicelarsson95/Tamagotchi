@@ -65,16 +65,28 @@ h1 {
   height: 60%; 
 }
 
-.tamagotchi-display--tamagotchi {
+.tamagotchi-display--levels {
   display: none;
 }
 
 .tamagotchi-display--levels {
-
+  gap: 2rem;
+  flex-direction: row;
 }
 
-.tamagotchi-display--levels img {
+.level-icon {
   min-width: 3rem;
+  width: 5rem;
+}
+
+.battery-icon {
+  max-height: 8rem;
+}
+
+.tamagotchi-levels {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .hatch-text {
