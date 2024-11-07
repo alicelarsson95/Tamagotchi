@@ -4,26 +4,30 @@ let hungerLevel = 100;
 
 const batteryLevels = [
     {
-        name: "100%",
-        img: "./img/battery-4.png"
-    },
-    {
-        name: "75%",
-        img: "./img/battery-3.png"
-    },
-    {
-        name: "50%",
-        img: "./img/battery-2.png"
+        name: "10%",
+        img: "img/battery-0.png"
     },
     {
         name: "25%",
-        img: "./img/battery-1.png"
+        img: "img/battery-1.png"
     },
     {
-        name: "10%",
-        img: "./img/battery-0.png"
+        name: "50%",
+        img: "img/battery-2.png"
+    },
+    {
+        name: "75%",
+        img: "img/battery-3.png"
+    },
+    {
+        name: "100%",
+        img: "img/battery-4.png"
     }
 ]
+
+const levelSleep = document.querySelector('.tamagotchi-levels--sleep .battery-level')
+const levelHunger = document.querySelector('.tamagotchi-levels--hunger .battery-level')
+const levelHappy = document.querySelector('.tamagotchi-levels--play .battery-level')
 
 const tamagotchiStates = document.querySelectorAll(".tamagotchi-img");;
 tamagotchiStates.forEach(state => {
@@ -57,11 +61,7 @@ startButton.addEventListener('click', function() {
 
     startButton.disabled = true;
    
-    sleepButton.addEventListener('click', sleepTamagotchi)
-    feedButton.addEventListener('click', feedTamagotchi)
-    playButton.addEventListener('click', playWithTamagotchi)
 
-    statsButton.addEventListener('click', watchStats) 
 })
 
 function watchStats(){
@@ -84,11 +84,15 @@ function stopWatchingStats() {
 
 function startTamagotchi() {
     tamagotchiStates[4].style.display = 'none'
-
     tamagotchiStates[0].style.display = 'block'
     tamagotchiStates[0].classList.add('moving-dragon')
     hatchText.innerText = "Bikkjen has hatched!"
     
+    sleepButton.addEventListener('click', sleepTamagotchi)
+    feedButton.addEventListener('click', feedTamagotchi)
+    playButton.addEventListener('click', playWithTamagotchi)
+
+    statsButton.addEventListener('click', watchStats) 
     
     setTimeout(clearText, 2000)
     
@@ -105,12 +109,23 @@ function countDownLevels() {
     hungerLevel -=1.5
     happinessLevel --
 
+ batteryStatus()
+
     console.log('energi: ', energyLevel, 'lycka: ', happinessLevel, 'hunger: ', hungerLevel)
     
     if (energyLevel <= 0 || happinessLevel <= 0 || hungerLevel <= 0){
+        displayTamagotchi.style.display = 'flex'
+        displayStats.style.display = 'none'
+
         tamagotchiStates[3].style.display = 'none'
         tamagotchiStates[1].style.display = 'block'
+        
 
+        playButton.disabled = true
+        sleepButton.disabled = true
+        feedButton.disabled = true
+        statsButton.disabled = true
+        
         clearInterval(levels)
         hatchText.innerText = "Bikkjen has died :("
 
@@ -146,8 +161,53 @@ function countDownLevels() {
        
         //localstorage
  }, 400);
+}
+
+function batteryStatus() {
+       if (energyLevel <= 10) {
+        levelSleep.innerHTML = `<img class="battery-icon" src="${batteryLevels[0].img}">`
+    } else if (energyLevel <= 25) {
+        levelSleep.innerHTML = `<img class="battery-icon" src="${batteryLevels[1].img}">` 
+    } else if (energyLevel <= 50) {
+        levelSleep.innerHTML = `<img class="battery-icon" src="${batteryLevels[2].img}">`
+    } else if (energyLevel <= 75) {
+        levelSleep.innerHTML = `<img class="battery-icon" src="${batteryLevels[3].img}">`
+    } else if (energyLevel <= 100) {
+        levelSleep.innerHTML = `<img class="battery-icon" src="${batteryLevels[4].img}">`
+    } else {
+        console.log('WTF'); 
+    }
+
+    if (hungerLevel <= 10) {
+        levelHunger.innerHTML = `<img class="battery-icon" src="${batteryLevels[0].img}">`
+    } else if (hungerLevel <= 25) {
+        levelHunger.innerHTML = `<img class="battery-icon" src="${batteryLevels[1].img}">`
+    } else if (hungerLevel <= 50) {
+        levelHunger.innerHTML = `<img class="battery-icon" src="${batteryLevels[2].img}">`
+    } else if (hungerLevel <= 75) {
+        levelHunger.innerHTML = `<img class="battery-icon" src="${batteryLevels[3].img}">`
+    } else if (hungerLevel <= 100) {
+        levelHunger.innerHTML = `<img class="battery-icon" src="${batteryLevels[4].img}">`
+    } else {
+        console.log('WTF'); 
+    }
+
+    if (happinessLevel <= 10) {
+        levelHappy.innerHTML = `<img class="battery-icon" src="${batteryLevels[0].img}">`
+    } else if (happinessLevel <= 25) {
+        levelHappy.innerHTML = `<img class="battery-icon" src="${batteryLevels[1].img}">`
+    } else if (happinessLevel <= 50) {
+        levelHappy.innerHTML = `<img class="battery-icon" src="${batteryLevels[2].img}">`
+    } else if (happinessLevel <= 75) {
+        levelHappy.innerHTML = `<img class="battery-icon" src="${batteryLevels[3].img}">`
+    } else if (happinessLevel <= 100) {
+        levelHappy.innerHTML = `<img class="battery-icon" src="${batteryLevels[4].img}">`
+    } else {
+        console.log('WTF'); 
+    }
 
 
+    
 }
 
  
@@ -159,7 +219,7 @@ function countDownLevels() {
     sleepButton.disabled = true
     playButton.disabled = true
     statsButton.disabled = true
-
+    
     clearInterval(levels)
 
     tamagotchiStates[0].style.display = 'none'

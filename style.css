@@ -39,7 +39,7 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 35vw; 
+  width: 35vw; 
   max-width: 45vw; 
   max-height: 90vh;
   aspect-ratio: 1/1.2;
@@ -67,28 +67,42 @@ h1 {
 
 .tamagotchi-display--levels {
   display: none;
-}
-
-.tamagotchi-display--levels {
-  gap: 1rem;
   flex-direction: row;
   justify-content: space-evenly;
+  
 }
+
 .tamagotchi-levels {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  height: 100%;
 }
 
 .level-icon {
   min-width: 2rem;
   width: 3.5rem;
+  
+}
+
+.battery-level {    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 3.5rem;
+  height: 8rem;
 }
 
 .battery-icon {
-  height: 5rem;
-  max-height: 8rem;
+  height: 100%;
 }
 
+.icon-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .hatch-text {
   position: absolute;
