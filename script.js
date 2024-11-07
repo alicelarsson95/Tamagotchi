@@ -1,6 +1,30 @@
 let energyLevel = 100;
 let happinessLevel = 100;
 let hungerLevel = 100;
+
+const batteryLevels = [
+    {
+        name: "100%",
+        img: "./img/battery-4.png"
+    },
+    {
+        name: "75%",
+        img: "./img/battery-3.png"
+    },
+    {
+        name: "50%",
+        img: "./img/battery-2.png"
+    },
+    {
+        name: "25%",
+        img: "./img/battery-1.png"
+    },
+    {
+        name: "10%",
+        img: "./img/battery-0.png"
+    }
+]
+
 const tamagotchiStates = document.querySelectorAll(".tamagotchi-img");;
 tamagotchiStates.forEach(state => {
     state.style.display = 'none' 
@@ -13,11 +37,14 @@ const displayStats = document.querySelector('.tamagotchi-display--levels')
 const sleepButton = document.querySelector('.tamagotchi_button--sleep')
 const feedButton = document.querySelector('.tamagotchi_button--eat')
 const playButton = document.querySelector('.tamagotchi_button--play')
+const statsButton = document.querySelector('.tamagotchi_button--levels')
+
 const startButton = document.querySelector('.start-button')
 const resetButton = document.querySelector('.reset-button')
 
 const hatchText = document.querySelector('.hatch-text'); 
 const eggImage = document.querySelector('.tamagotchi-img--egg');
+const ball = document.querySelector(".tamagotchi-img--ball");
 
 startButton.addEventListener('click', function() {
     tamagotchiStates[4].style.display = 'block';
@@ -33,11 +60,33 @@ startButton.addEventListener('click', function() {
     sleepButton.addEventListener('click', sleepTamagotchi)
     feedButton.addEventListener('click', feedTamagotchi)
     playButton.addEventListener('click', playWithTamagotchi)
+
+    statsButton.addEventListener('click', watchStats) 
 })
+
+function watchStats(){
+    displayTamagotchi.style.display = 'none'
+    displayStats.style.display = 'flex'
+
+    statsButton.removeEventListener('click', watchStats)
+
+    statsButton.addEventListener('click', stopWatchingStats)
+}
+
+function stopWatchingStats() {
+    displayTamagotchi.style.display = 'flex'
+    displayStats.style.display = 'none'
+
+    statsButton.removeEventListener('click', stopWatchingStats)
+    statsButton.addEventListener('click', watchStats)
+}
+
 
 function startTamagotchi() {
     tamagotchiStates[4].style.display = 'none'
+
     tamagotchiStates[0].style.display = 'block'
+    tamagotchiStates[0].classList.add('moving-dragon')
     hatchText.innerText = "Bikkjen has hatched!"
     
     
@@ -56,8 +105,8 @@ function countDownLevels() {
     hungerLevel -=1.5
     happinessLevel --
 
+    console.log('energi: ', energyLevel, 'lycka: ', happinessLevel, 'hunger: ', hungerLevel)
     
-
     if (energyLevel <= 0 || happinessLevel <= 0 || hungerLevel <= 0){
         tamagotchiStates[3].style.display = 'none'
         tamagotchiStates[1].style.display = 'block'
@@ -94,17 +143,22 @@ function countDownLevels() {
             displayTamagotchi.style.background = '';
         }
 
-        console.log('energi: ', energyLevel, 'lycka: ', happinessLevel, 'hunger: ', hungerLevel)
+       
         //localstorage
  }, 400);
+
+
 }
 
  
  function feedTamagotchi(){ 
+    displayTamagotchi.style.display = 'flex'
+    displayStats.style.display = 'none'
     feedButton.removeEventListener('click', feedTamagotchi)
     feedButton.addEventListener('click', stopfeedingTamagotchi)
     sleepButton.disabled = true
     playButton.disabled = true
+    statsButton.disabled = true
 
     clearInterval(levels)
 
@@ -140,10 +194,20 @@ function stopfeedingTamagotchi(){
     feedButton.addEventListener('click', feedTamagotchi)
     sleepButton.disabled = false
     playButton.disabled = false
+    statsButton.disabled = false
 
-    tamagotchiStates[0].style.display = 'block' //if över 30 glad, else ledsen
+
     tamagotchiStates[5].style.display = 'none'
     tamagotchiStates[6].style.display = 'none'
+
+    if(energyLevel <= 30 || hungerLevel <= 30 || happinessLevel <= 30) {
+        tamagotchiStates[3].style.display = 'block'
+        tamagotchiStates[0].style.display = 'none'
+    } else {
+        tamagotchiStates[3].style.display = 'none'
+        tamagotchiStates[0].style.display = 'block'
+    }
+    
 
     countDownLevels()
 
@@ -151,6 +215,9 @@ function stopfeedingTamagotchi(){
 }
 
 function sleepTamagotchi(){
+    displayTamagotchi.style.display = 'flex'
+    displayStats.style.display = 'none'
+    statsButton.disabled = true
     sleepButton.removeEventListener('click', sleepTamagotchi)
     sleepButton.addEventListener('click', awakenTamagotchi)
     feedButton.disabled = true
@@ -178,7 +245,7 @@ function sleepTamagotchi(){
             hatchText.innerText = ''
         }
 
-        if (energyLevel == 100) {
+        if (energyLevel >= 100) {
             awakenTamagotchi()
         }
         //localstorage?
@@ -192,33 +259,89 @@ function awakenTamagotchi() {
     sleepButton.addEventListener('click', sleepTamagotchi)
     feedButton.disabled = false
     playButton.disabled = false
+    statsButton.disabled = false
 
-    tamagotchiStates[0].style.display = 'block' //if över 30 glad, else ledsen
+
+
     tamagotchiStates[2].style.display = 'none'
     displayTamagotchi.style.background = ''
+
+    if(energyLevel <= 30 || hungerLevel <= 30 || happinessLevel <= 30) {
+        tamagotchiStates[3].style.display = 'block'
+        tamagotchiStates[0].style.display = 'none'
+    } else {
+        tamagotchiStates[3].style.display = 'none'
+        tamagotchiStates[0].style.display = 'block'
+    }
 
     countDownLevels()
 }
 
 
 function playWithTamagotchi(){
+    displayTamagotchi.style.display = 'flex'
+    displayStats.style.display = 'none'
     playButton.removeEventListener('click', playWithTamagotchi)
     playButton.addEventListener('click', stopPlayingWithTamagotchi)
     feedButton.disabled = true
+    statsButton.disabled = true
     sleepButton.disabled = true
-
+    
     clearInterval(levels)
     
     tamagotchiStates[3].style.display = 'none'
-    tamagotchiStates[0].style.display = 'block'
     tamagotchiStates[7].style.display = 'block'
 
+    tamagotchiStates[0].style.display = 'block'
+    tamagotchiStates[0].style.position = 'absolute'
+    tamagotchiStates[0].style.right = '0'
+    tamagotchiStates[0].style.bottom = '5rem'
+
+    tamagotchiStates[0].classList.add('bouncing-dragon')
+    
+    play = setInterval(() => {
+        happinessLevel ++
+
+        console.log('lycka: ', happinessLevel);
+        
+
+        if (happinessLevel >= 100) {
+            stopPlayingWithTamagotchi()
+        }
+        //localstorage?
+    }, 1000);
 
 
 }
 
 function stopPlayingWithTamagotchi(){
+    playButton.removeEventListener('click', stopPlayingWithTamagotchi)
+    playButton.addEventListener('click', playWithTamagotchi)
 
+    clearInterval(play)
+    feedButton.disabled = false
+    sleepButton.disabled = false
+    statsButton.disabled = false
+
+
+    tamagotchiStates[7].style.display = 'none'
+    
+    tamagotchiStates[0].style.display = ''
+    tamagotchiStates[0].style.position = ''
+    tamagotchiStates[0].style.right = ''
+    tamagotchiStates[0].style.bottom = ''
+    
+    tamagotchiStates[0].classList.remove('bouncing-dragon')
+    
+    if(energyLevel <= 30 || hungerLevel <= 30 || happinessLevel <= 30) {
+        tamagotchiStates[3].style.display = 'block'
+        tamagotchiStates[0].style.display = 'none'
+    } else {
+        tamagotchiStates[3].style.display = 'none'
+        tamagotchiStates[0].style.display = 'block'
+    }
+
+    countDownLevels()
 }
 
 
@@ -228,3 +351,6 @@ function changeTamagotchiColor(){
 
 function resetTamagotchi(){
 }
+
+
+

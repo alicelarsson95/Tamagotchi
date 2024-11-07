@@ -65,7 +65,7 @@ h1 {
   height: 60%; 
 }
 
-.tamagotchi-display--tamagotchi {
+.tamagotchi-display--levels {
   display: none;
 }
 
@@ -106,8 +106,20 @@ h1 {
   100% { transform: translateX(0); }
 }
 
+@keyframes shaking {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}
+
 .tamagotchi-img {
   max-width: 60%;
+}
+
+.moving-dragon {
+  animation: shaking 2s ease-in-out infinite;
 }
 
 .shake {
@@ -182,3 +194,37 @@ h1 {
   max-width: 75%;
   
 }
+
+.tamagotchi-img--ball {
+  max-width: 40%;
+  position: absolute;
+  left: 0;
+  bottom: 6rem;
+  animation: bounce 1s ease infinite ; 
+}
+
+.bouncing-dragon {
+  animation: bouncing 1s ease infinite ;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    bottom: 0;
+    transform: scale(.8);
+  }
+  50% {
+    bottom: 15rem; 
+    transform: scale(1.2);
+  }
+}
+
+@keyframes bouncing {
+  0%, 100% {
+    bottom: 5rem;
+  }
+  50% {
+    bottom: 7px; 
+  }
+}
+
+
