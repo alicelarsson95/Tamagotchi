@@ -1,28 +1,9 @@
-let energyLevel = 100;
-let happinessLevel = 100;
-let hungerLevel = 100;
-
 const batteryLevels = [
-    {
-        name: "10%",
-        img: "img/battery-0.png"
-    },
-    {
-        name: "25%",
-        img: "img/battery-1.png"
-    },
-    {
-        name: "50%",
-        img: "img/battery-2.png"
-    },
-    {
-        name: "75%",
-        img: "img/battery-3.png"
-    },
-    {
-        name: "100%",
-        img: "img/battery-4.png"
-    }
+    {name: "10%", img: "img/battery-0.png"},
+    {name: "25%", img: "img/battery-1.png"},
+    {name: "50%", img: "img/battery-2.png"},
+    {name: "75%", img: "img/battery-3.png"},
+    {name: "100%", img: "img/battery-4.png"}
 ]
 
 const levelSleep = document.querySelector('.tamagotchi-levels--sleep .battery-level')
@@ -45,22 +26,63 @@ const statsButton = document.querySelector('.tamagotchi_button--levels')
 
 const startButton = document.querySelector('.start-button')
 const resetButton = document.querySelector('.reset-button')
+resetButton.addEventListener('click', resetTamagotchi)
 
 const hatchText = document.querySelector('.hatch-text'); 
 const eggImage = document.querySelector('.tamagotchi-img--egg');
 const ball = document.querySelector(".tamagotchi-img--ball");
 
+let hungerLevel = 100
+let energyLevel = 100
+let happinessLevel= 100
+
+
+function loadData() {
+    console.log('Loading...');
+    const savedHunger = localStorage.getItem('hungerLevel')
+    const savedHappiness = localStorage.getItem('happinessLevel')
+    const savedEnergy = localStorage.getItem('energyLevel')
+    const lastSave = parseInt(localStorage.getItem('lastSave'), 10) || Date.now()
+
+    if (savedEnergy && savedHappiness && savedHunger) {
+        happinessLevel = JSON.parse(savedHappiness)
+        hungerLevel = JSON.parse(savedHunger)
+        energyLevel = JSON.parse(savedEnergy)
+        console.log(energyLevel,happinessLevel,hungerLevel);
+        
+
+        const timeSinceLast = Math.floor((Date.now() - lastSave) / 10000)
+
+        hungerLevel -= timeSinceLast
+        energyLevel -= timeSinceLast
+        happinessLevel -= timeSinceLast
+
+        hungerLevel = Math.max(0, hungerLevel);
+        energyLevel = Math.max(0, energyLevel);
+        happinessLevel = Math.max(0, happinessLevel);
+
+        console.log(energyLevel,happinessLevel,hungerLevel);
+        return true;
+    }
+    return false;
+}
+
+
 startButton.addEventListener('click', function() {
-    tamagotchiStates[4].style.display = 'block';
-    hatchText.innerText = 'Hatching..';
-    eggImage.classList.add('shake');
-    setTimeout(() => {
-        eggImage.classList.remove('shake');
-    }, 5000);
-    setTimeout(startTamagotchi, 5000);
+    if(loadData()) {
+        startTamagotchi()
+    } else {
+        tamagotchiStates[4].style.display = 'block';
+        hatchText.innerText = 'Hatching..';
+        eggImage.classList.add('shake');
+        setTimeout(() => {
+            eggImage.classList.remove('shake');
+            startTamagotchi()
+            hatchText.innerText = "Bikkjen has hatched!"
+        }, 5000);
+    }
 
     startButton.disabled = true;
-   
 
 })
 
@@ -84,10 +106,14 @@ function stopWatchingStats() {
 
 function startTamagotchi() {
     tamagotchiStates[4].style.display = 'none'
+    if(energyLevel <= 30 || happinessLevel <= 30 || hungerLevel <= 30){
+        tamagotchiStates[3].style.display = 'block'
+        hatchText.innerText = 'Finally!!!'
+    } else{
     tamagotchiStates[0].style.display = 'block'
     tamagotchiStates[0].classList.add('moving-dragon')
-    hatchText.innerText = "Bikkjen has hatched!"
-    
+    hatchText.innerText = "You're back <3" 
+    }
     sleepButton.addEventListener('click', sleepTamagotchi)
     feedButton.addEventListener('click', feedTamagotchi)
     playButton.addEventListener('click', playWithTamagotchi)
@@ -159,7 +185,7 @@ function countDownLevels() {
         }
 
        
-        //localstorage
+        saveData()
  }, 400);
 }
 
@@ -244,7 +270,7 @@ function batteryStatus() {
             stopfeedingTamagotchi()
         }
     }, 500);
-
+    saveData()
 }
 
 function stopfeedingTamagotchi(){
@@ -308,8 +334,8 @@ function sleepTamagotchi(){
         if (energyLevel >= 100) {
             awakenTamagotchi()
         }
-        //localstorage?
     }, 1000);
+    saveData()
 }
 
 function awakenTamagotchi() {
@@ -368,10 +394,8 @@ function playWithTamagotchi(){
         if (happinessLevel >= 100) {
             stopPlayingWithTamagotchi()
         }
-        //localstorage?
     }, 1000);
-
-
+    saveData()
 }
 
 function stopPlayingWithTamagotchi(){
@@ -405,12 +429,20 @@ function stopPlayingWithTamagotchi(){
 }
 
 
-function changeTamagotchiColor(){
+function saveData () {
+    localStorage.setItem('hungerLevel', JSON.stringify(hungerLevel))
+    localStorage.setItem('happinessLevel', JSON.stringify(happinessLevel))
+    localStorage.setItem('energyLevel', JSON.stringify(energyLevel))
+    localStorage.setItem('lastSave', Date.now())
 
+    console.log('saving...');
 }
+
 
 function resetTamagotchi(){
+    localStorage.clear()
+    location.reload()
 }
 
 
-
+loadData()
